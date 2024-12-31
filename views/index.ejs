@@ -7,18 +7,32 @@
 </head>
 <body>
     <h1>Car Parts Inventory</h1>
+    <a href="/add-category">Add a category</a>
+    <a href="/add-item">Add a part</a>
     <h3>Categories</h3>
-    <ul>
-        categories.forEach((category) => {
-            <li><%=category.categoryName%></li>
-        })
-    </ul>
-    <h3>Parts</h3>
-    <ul>
-        items.forEach((item) => {
-            <li><%=item.itemName%></li>
-        })
-    </ul>
-    </ul>
+    <div>
+        <ul>
+            <%categories.forEach((category) => { %>
+                <li><%=category.categoryname%></li>
+                <form action="/<%=category.categoryid%>/delete-category" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <button><a href="/<%=category.categoryid%>/edit-category">Edit</a></button>
+            <%}) %>
+        </ul>
+    </div>
+    <div>
+        <h3>Parts</h3>
+        <ul>
+            <%items.forEach((item) => {%>
+                <li><%=item.itemname%></li>
+                <form action="/<%=item.itemid%>/delete-item" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <button><a href="/<%=item.itemid%>/edit-item">Edit</a></button>
+                
+            <%})%>
+        </ul>
+    </div>
 </body>
 </html>
