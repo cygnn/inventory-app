@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+</head>
+<body>
+    <form action="/add-item" method="post">
+        <label for="itemName">Item Name</label>
+        <input type="text" name="itemName" id="itemName">
+        <label for="categoryId">Select Category</label>
+        <select name="categoryId" id="categoryId">
+            <option value="">----</option>
+            <% categories.forEach((category) => { %>
+                <option value="<%= category.categoryid %>""><%=category.categoryname%></option>
+            <%}) %>
+        </select>
+        <label for="partNum">Part number</label>
+        <input type="text" name="partNum" id="partNum">
+        <label for="description">Description</label>
+        <textarea name="description" id="description"></textarea>
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" min="0" step="0.01" placeholder="Enter price">
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity">
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>
