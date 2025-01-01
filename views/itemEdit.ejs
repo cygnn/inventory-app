@@ -10,8 +10,8 @@
         <label for="itemName">Item Name</label>
         <input type="text" name="itemName" id="itemName" value="<%=item.itemname%>">
         <label for="categoryId">Select Category</label>
-        <select name="categoryId" id="categoryId" selected="<%=item.categoryid%>>
-            <option value="">----</option>
+        <select name="categoryId" id="categoryId" selected="<%=item.categoryid%>">
+            <option value="<% null %>">----</option>
             <% categories.forEach((category) => { %>
                 <option value="<%= category.categoryid %>""><%=category.categoryname%></option>
             <%}) %>
