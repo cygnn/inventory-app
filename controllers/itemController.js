@@ -1,35 +1,65 @@
-import queries from '../model/queries.js'
+import queries from '../model/queries.js';
+import {body, validationResult} from 'express-validator';
 
-async function itemAddGet(req,res){
-    const categories = await queries.getAllCategoryNames();
-    res.render('addItem', {categories: categories})
+const validateItem = [
+    body("price").isNumeric().isInt({min:0}).withMessage(`Please enter a valid price`),
+    body("quantity").isInt({min:0}).withMessage(`Please enter a number.`),
+]
+
+async function itemAddGet(req, res) {
+    try {
+        const categories = await queries.getAllCategoryNames();
+        res.render('addItem', { categories });
+    } catch (error) {
+        console.error("Error fetching categories for item addition:", error);
+        res.status(500).send("An error occurred while preparing the item addition form.");
+    }
 }
 
-async function itemAddPost(req,res){
-    const {itemName, categoryId, partNum, description, price, quantity} = req.body
-    console.log(req.body)
-    await queries.addItem(itemName, categoryId, partNum, description, price, quantity)
-    res.redirect('/')
+async function itemAddPost(req, res) {
+    try {
+        const { itemName, categoryId, partNum, description, price, quantity } = req.body;
+        console.log(req.body);
+        await queries.addItem(itemName, categoryId, partNum, description, price, quantity);
+        res.redirect('/');
+    } catch (error) {
+        console.error("Error adding item in POST:", error);
+        res.status(500).render('error');
+    }
 }
 
-
-async function itemEditGet(req,res){
-    const itemDetails = await queries.getItemDetails(req.params.itemid)
-    const categories = await queries.getAllCategoryNames();
-    console.log(itemDetails)
-    res.render('itemEdit', {item:itemDetails, categories:categories})
+async function itemEditGet(req, res) {
+    try {
+        const itemDetails = await queries.getItemDetails(req.params.itemid);
+        const categories = await queries.getAllCategoryNames();
+        console.log(itemDetails);
+        res.render('itemEdit', { item: itemDetails, categories });
+    } catch (error) {
+        console.error("Error fetching item details or categories for editing:", error);
+        res.status(500).send("An error occurred while preparing the item edit form.");
+    }
 }
 
-async function itemEditPost(req,res){
-    const {itemName, categoryId, partNum, description, price, quantity} = req.body
-    console.log('This is itemname : ' + itemName)
-    await queries.editItem(itemName, categoryId, partNum, description, price, quantity, req.params.itemid)
-    res.redirect('/')
+async function itemEditPost(req, res) {
+    try {
+        const { itemName, categoryId, partNum, description, price, quantity } = req.body;
+        console.log('This is item name: ' + itemName);
+        await queries.editItem(itemName, categoryId, partNum, description, price, quantity, req.params.itemid);
+        res.redirect('/');
+    } catch (error) {
+        console.error("Error editing item:", error);
+        res.status(500).send("An error occurred while updating the item. Please try again.");
+    }
 }
 
-async function itemDeletePost(req,res){ 
-    await queries.deleteItem(req.params.itemid)
-    res.redirect('/')
+async function itemDeletePost(req, res) {
+    try {
+        await queries.deleteItem(req.params.itemid);
+        res.redirect('/');
+    } catch (error) {
+        console.error("Error deleting item:", error);
+        res.status(500).send("An error occurred while deleting the item. Please try again.");
+    }
 }
 
 export default {
@@ -38,4 +68,4 @@ export default {
     itemDeletePost,
     itemEditGet,
     itemEditPost,
-}
+};
