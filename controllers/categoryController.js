@@ -6,11 +6,17 @@ async function getCategories(req, res) {
         const items = await queries.getAllItems();
         console.log(categories);
         console.log(items);
-        res.render('index', { categories, items });
+        res.render('home', { categories, items });
     } catch (error) {
         console.error("Error fetching categories and items:", error);
         res.status(500).send("An error occurred while fetching categories and items.");
     }
+}
+
+async function goToCategory(req,res){
+    const { id, categoryname } = req.params
+    const items = await queries.getItemsIn(id)
+    res.render('categoryWithItems', {categoryname: categoryname, items:items, referer: req.get('Referer') || '/' })
 }
 
 async function categoryAddGet(req, res) {
@@ -67,6 +73,7 @@ async function deleteCategory(req, res) {
 
 export default {
     getCategories,
+    goToCategory,
     categoryAddGet,
     categoryAddPost,
     categoryEditGet,
