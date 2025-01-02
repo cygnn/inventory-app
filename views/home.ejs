@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <div>
+        <a href="/add-category"><button>Add a category</button></a>
+        <a href="/add-item"><button>Add a part</button></a>
+        <div>Categories</div>
+        <%categories.forEach((category) => {%>
+            <a href="/categories/<%=category.categoryname%>&id=<%=category.categoryid%>">
+                <div class="card">
+                    <img src="<%=category.img%>" alt="">
+                    <div>
+                        <p><%=category.categoryname%></p>
+                    </div>
+                </div>
+            </a>
+        <%})%>
+    </div>
+</body>
+</html>

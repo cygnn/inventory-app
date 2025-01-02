@@ -9,7 +9,7 @@ const validateItem = [
 async function itemAddGet(req, res) {
     try {
         const categories = await queries.getAllCategoryNames();
-        res.render('addItem', { categories });
+        res.render('addItem', { categories , referer: req.get('Referer') || '/' });
     } catch (error) {
         console.error("Error fetching categories for item addition:", error);
         res.status(500).send("An error occurred while preparing the item addition form.");
@@ -18,9 +18,9 @@ async function itemAddGet(req, res) {
 
 async function itemAddPost(req, res) {
     try {
-        const { itemName, categoryId, partNum, description, price, quantity } = req.body;
+        const { itemName, brand,categoryId, partNum, description, price, quantity } = req.body;
         console.log(req.body);
-        await queries.addItem(itemName, categoryId, partNum, description, price, quantity);
+        await queries.addItem(itemName, brand, categoryId, partNum, description, price, quantity);
         res.redirect('/');
     } catch (error) {
         console.error("Error adding item in POST:", error);
@@ -33,7 +33,7 @@ async function itemEditGet(req, res) {
         const itemDetails = await queries.getItemDetails(req.params.itemid);
         const categories = await queries.getAllCategoryNames();
         console.log(itemDetails);
-        res.render('itemEdit', { item: itemDetails, categories });
+        res.render('itemEdit', { item: itemDetails, categories , referer: req.get('Referer') || '/' });
     } catch (error) {
         console.error("Error fetching item details or categories for editing:", error);
         res.status(500).send("An error occurred while preparing the item edit form.");
@@ -42,9 +42,9 @@ async function itemEditGet(req, res) {
 
 async function itemEditPost(req, res) {
     try {
-        const { itemName, categoryId, partNum, description, price, quantity } = req.body;
+        const { itemName, brand,categoryId, partNum, description, price, quantity } = req.body;
         console.log('This is item name: ' + itemName);
-        await queries.editItem(itemName, categoryId, partNum, description, price, quantity, req.params.itemid);
+        await queries.editItem(itemName, brand, categoryId, partNum, description, price, quantity, req.params.itemid);
         res.redirect('/');
     } catch (error) {
         console.error("Error editing item:", error);
@@ -54,8 +54,9 @@ async function itemEditPost(req, res) {
 
 async function itemDeletePost(req, res) {
     try {
+        const back = req.get('Referer')
         await queries.deleteItem(req.params.itemid);
-        res.redirect('/');
+        res.redirect(back);
     } catch (error) {
         console.error("Error deleting item:", error);
         res.status(500).send("An error occurred while deleting the item. Please try again.");

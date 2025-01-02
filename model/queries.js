@@ -66,17 +66,27 @@ async function getAllItems() {
     }
 }
 
-async function addItem(itemName, categoryId, partnum, description, price, quantity) {
+async function getItemsIn(categoryId){
+    try {
+        const { rows } = await pool.query("SELECT * FROM items WHERE categoryid = $1", [categoryId])
+        return rows;
+    } catch (error) {
+        console.error("Error fetching in all ites:", error)
+        throw new Error("Failed to fetch items.");
+    }
+}
+
+async function addItem(itemName, brand,categoryId, partnum, description, price, quantity) {
     try {
         const query = `
-            INSERT INTO items (itemname, categoryid, partnum, description, price, quantity)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO items (itemname, brand, categoryid, partnum, description, price, quantity)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
         `;
         var newCategoryId = categoryId
         if (newCategoryId === ''){
             newCategoryId = null;
         }
-        const values = [itemName, newCategoryId, partnum, description, price, quantity];
+        const values = [itemName, brand, newCategoryId, partnum, description, price, quantity];
         await pool.query(query, values);
     } catch (error) {
         console.error("Error adding new item:", error);
@@ -86,7 +96,6 @@ async function addItem(itemName, categoryId, partnum, description, price, quanti
 
 async function getItemDetails(itemid) {
     try {
-        console.log('this is item id in queries ' + itemid);
         const { rows } = await pool.query("SELECT * FROM items WHERE itemid = $1", [itemid]);
         return rows[0];
     } catch (error) {
@@ -95,13 +104,13 @@ async function getItemDetails(itemid) {
     }
 }
 
-async function editItem(itemName, categoryId, partNum, description, price, quantity, itemid) {
+async function editItem(itemName, brand,categoryId, partNum, description, price, quantity, itemid) {
     try {
         const query = `
-            UPDATE items SET itemName = $1, categoryId = $2, partnum = $3, description = $4, price = $5, quantity = $6 
-            WHERE itemid = $7
+            UPDATE items SET itemName = $1, brand = $2 ,categoryId = $3, partnum = $4, description = $5, price = $6, quantity = $7 
+            WHERE itemid = $8
         `;
-        const values = [itemName, categoryId, partNum, description, price, quantity, itemid];
+        const values = [itemName, brand, categoryId, partNum, description, price, quantity, itemid];
         await pool.query(query, values);
     } catch (error) {
         console.error("Error editing item:", error);
@@ -125,6 +134,7 @@ export default {
     deleteCategory,
     renameCategory,
     getAllItems,
+    getItemsIn,
     getItemDetails,
     addItem,
     editItem,

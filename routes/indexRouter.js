@@ -11,6 +11,7 @@ indexRouter.post('/add-category', categoryController.categoryAddPost)
 indexRouter.post('/:categoryid/delete-category', categoryController.deleteCategory)
 indexRouter.get('/:categoryid/edit-category', categoryController.categoryEditGet);
 indexRouter.post('/:categoryid/edit-category', categoryController.categoryEditPost);
+indexRouter.get('/categories/:categoryname&id=:id', categoryController.goToCategory);
 indexRouter.get('/add-item', itemController.itemAddGet)
 indexRouter.post('/add-item', itemController.itemAddPost)
 indexRouter.get('/:itemid/edit-item', itemController.itemEditGet)

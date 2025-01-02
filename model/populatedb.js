@@ -5,7 +5,8 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE IF NOT EXISTS categories (
   categoryId INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  categoryName VARCHAR ( 255 ) NOT NULL
+  categoryName VARCHAR ( 255 ) NOT NULL,
+  img TEXT
 );
 
 INSERT INTO categories (categoryName) 
@@ -18,7 +19,8 @@ VALUES
 CREATE TABLE IF NOT EXISTS items (
     itemId INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     itemName VARCHAR(150) NOT NULL,
-    categoryId INT NOT NULL,
+    bran VARCHAR(150) NOT NULL,
+    categoryId INT,
     partNum VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
     price NUMERIC(10,2),
@@ -26,6 +28,7 @@ CREATE TABLE IF NOT EXISTS items (
     CONSTRAINT fk_category
     FOREIGN KEY (categoryId)
     REFERENCES categories (categoryId)
+    ON DELETE SET NULL
 );
 
 INSERT INTO items (itemName, categoryId, partNum, description, price, quantity)

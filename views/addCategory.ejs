@@ -6,10 +6,11 @@
     <title>Add a category</title>
 </head>
 <body>
-    <form action="/add-category" method="POST">
+    <form id="category-form" action="/add-category" method="POST">
         <label for="categoryName">Category Name</label>
         <input type="text" name="categoryName" id="categoryName">
-        <button type="submit">Add</a></button>
     </form>
+    <button type="submit" form="category-form">Add</button>
+    <a href="/"><button>Cancel</button></a>
 </body>
 </html>

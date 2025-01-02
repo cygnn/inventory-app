@@ -6,10 +6,11 @@
     <title>Edit Category</title>
 </head>
 <body>
-    <form action="/<%=category.categoryid%>/edit-category" method="POST">
+    <form id="category-edit" action="/<%=category.categoryid%>/edit-category" method="POST">
         <label for="categoryName">Category Name</label>
         <input type="text" name="categoryName" id="categoryName" value="<%=category.categoryname%>">
-        <button type="submit">Save</a></button>
     </form>
+    <button type="submit" form="category-edit">Save</a></button>
+    <a href="/"><button>Cancel</button></a>
 </body>
 </html>
