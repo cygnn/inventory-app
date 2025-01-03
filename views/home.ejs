@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/home.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
 <body>
     <%- include("header.ejs") %>
-    <div>
-        <a href="/add-category"><button>Add a category</button></a>
-        <a href="/add-item"><button>Add a part</button></a>
-        <div>Categories</div>
-        <%categories.forEach((category) => {%>
-            <a href="/categories/<%=category.categoryname%>&id=<%=category.categoryid%>">
-                <div class="card">
-                    <img src="<%=category.img%>" alt="">
-                    <div>
-                        <p><%=category.categoryname%></p>
-                    </div>
-                </div>
-            </a>
-        <%})%>
+    <div class="content">
+        <!-- <a href="/add-category"><button>Add a category</button></a>
+        <a href="/add-item"><button>Add a part</button></a> -->
+        <%- include("sidebar.ejs") %>
+        <div class="main-content">
+            <h1 class="heading">Categories</h1>
+            <div class="grid">
+                <%categories.forEach((category) => {%>
+                    <a href="/categories/<%=category.categoryname%>&id=<%=category.categoryid%>">
+                        <div class="category-card">
+                            <img class="category-img" src="<%=category.img ? category.img : 'https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg'%>" alt="">
+                            <div>
+                                <p><%=category.categoryname%></p>
+                            </div>
+                        </div>
+                    </a>
+                <%})%>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -30,8 +30,9 @@ async function categoryAddGet(req, res) {
 
 async function categoryAddPost(req, res) {
     try {
-        const { categoryName } = req.body;
-        await queries.addCategory(categoryName);
+        const { categoryName, categoryImg } = req.body;
+        await queries.addCategory(categoryName, categoryImg);
+        console.log(categoryImg)
         res.redirect('/');
     } catch (error) {
         console.error("Error adding category:", error);

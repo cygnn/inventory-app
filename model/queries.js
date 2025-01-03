@@ -11,9 +11,9 @@ async function getAllCategoryNames() {
     }
 }
 
-async function addCategory(newCategory) {
+async function addCategory(newCategory, img) {
     try {
-        await pool.query("INSERT INTO categories (categoryName) VALUES ($1)", [newCategory]);
+        await pool.query("INSERT INTO categories (categoryName, img) VALUES ($1, $2)", [newCategory, img]);
     } catch (error) {
         console.error("Error adding new category:", error);
         throw new Error("Failed to add new category.");
