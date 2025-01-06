@@ -4,8 +4,6 @@ async function getCategories(req, res) {
     try {
         const categories = await queries.getAllCategoryNames();
         const items = await queries.getAllItems();
-        console.log(categories);
-        console.log(items);
         res.render('home', { categories, items });
     } catch (error) {
         console.error("Error fetching categories and items:", error);
@@ -32,11 +30,12 @@ async function categoryAddPost(req, res) {
     try {
         const { categoryName, categoryImg } = req.body;
         await queries.addCategory(categoryName, categoryImg);
-        console.log(categoryImg)
+        console.log('category name is : ' + categoryName)
+        console.log('category img: ' + categoryImg)
         res.redirect('/');
     } catch (error) {
         console.error("Error adding category:", error);
-        res.status(500).send("An error occurred while adding the category.");
+        res.status(500).render('error');
     }
 }
 
@@ -53,7 +52,6 @@ async function categoryEditGet(req, res) {
 async function categoryEditPost(req, res) {
     try {
         const { categoryName } = req.body;
-        console.log('This is category name in category controller: ' + categoryName);
         await queries.renameCategory(categoryName, req.params.categoryid);
         res.redirect('/');
     } catch (error) {
@@ -65,10 +63,20 @@ async function categoryEditPost(req, res) {
 async function deleteCategory(req, res) {
     try {
         await queries.deleteCategory(req.params.categoryid);
-        res.redirect('/');
+        res.redirect('/manage-categories');
     } catch (error) {
         console.error("Error deleting category:", error);
         res.status(500).send("An error occurred while deleting the category.");
+    }
+}
+
+async function manageCategoryGet(req,res){
+    try {
+        const categories = await queries.getAllCategoryNames();
+        res.render('manageCategories', { categories: categories });
+    } catch (error) {
+        console.error("Error fetching category details:", error);
+        res.status(500).send("An error occurred while fetching category details.");
     }
 }
 
@@ -80,4 +88,5 @@ export default {
     categoryEditGet,
     categoryEditPost,
     deleteCategory,
+    manageCategoryGet,
 };

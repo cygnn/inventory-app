@@ -13,7 +13,13 @@ async function getAllCategoryNames() {
 
 async function addCategory(newCategory, img) {
     try {
-        await pool.query("INSERT INTO categories (categoryName, img) VALUES ($1, $2)", [newCategory, img]);
+        console.log("length is " + newCategory.length)
+        console.log(newCategory === null)
+        let categoryname = newCategory
+        if(categoryname.length === 0){
+            categoryname = null
+        }
+        await pool.query("INSERT INTO categories (categoryName, img) VALUES ($1, $2)", [categoryname, img]);
     } catch (error) {
         console.error("Error adding new category:", error);
         throw new Error("Failed to add new category.");
@@ -22,13 +28,10 @@ async function addCategory(newCategory, img) {
 
 async function renameCategory(newName, categoryId) {
     try {
-        console.log('New name: ' + newName);
-        console.log('Category id : ' + categoryId);
         const { rows } = await pool.query(
             "UPDATE categories SET categoryName = $1 WHERE categoryId = $2",
             [newName, categoryId]
         );
-        console.log('This is in rename category' + rows);
     } catch (error) {
         console.error("Error renaming category:", error);
         throw new Error("Failed to rename category.");
@@ -127,6 +130,18 @@ async function deleteItem(itemId) {
     }
 }
 
+// FOR BOTH
+
+async function getPartsWithCategoryNames(){
+    try {
+        const { rows } = await pool.query("SELECT i.itemid, i.itemname, i.brand, c.categoryid, c.categoryname, c.img, i.partnum, i.description, i.price, i.quantity FROM items i LEFT JOIN categories c ON i.categoryid = c.categoryid ORDER BY c.categoryname")
+        console.log(rows)
+        return rows;
+    } catch (error) {
+        
+    }
+}
+
 export default {
     getAllCategoryNames,
     addCategory,
@@ -139,4 +154,5 @@ export default {
     addItem,
     editItem,
     deleteItem,
+    getPartsWithCategoryNames,
 };

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Parts</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+.buttons-form{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+    height: 35px;
+}
+a button{
+    margin: 0;
+}
+
+.add{
+    padding: 0;
+}
+
+
+.buttons-form{
+    min-width: 100px;
+    padding: 10px 20px;
+}
+.cancel {
+    background-color: #F44336; /* Red for cancel */
+    margin-left: 10px;
+}
+
+.cancel:hover {
+    background-color: #D32F2F; /* Darker red */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+.cancel:active {
+    background-color: #B71C1C; /* Even darker red */
+    transform: translateY(1px); /* Push-down effect */
+}
+
+.buttons{
+    max-width: 500px;
+}
+    </style>
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <div class="content">
+        <!-- <a href="/add-category"><button>Add a category</button></a>
+        <a href="/add-item"><button>Add a part</button></a> -->
+        <%- include("sidebar.ejs") %>
+        <div class="main-content">
+            <h1 class="heading">Add Part</h1>
+            <form id="item-form" action="/add-item" method="post">
+                <label for="itemName">Item Name</label>
+                <input type="text" name="itemName" id="itemName">
+                <label for="brand">Brand</label>
+                <input type="text" name="brand" id="brand">
+                <label for="categoryId">Select Category</label>
+                <select name="categoryId" id="categoryId">
+                    <option value=>----</option>
+                    <% categories.forEach((category) => { %>
+                        <option value="<%= category.categoryid %>""><%=category.categoryname%></option>
+                    <%}) %>
+                </select>
+                <label for="partNum">Part number</label>
+                <input type="text" name="partNum" id="partNum">
+                <label for="description">Description</label>
+                <textarea name="description" id="description"></textarea>
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" min="0" step="0.01" placeholder="Enter price">
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity">
+            </form>
+            <div class="buttons-form">
+                <button type="submit" form="item-form" class="add">Add</button>
+                <a href="/"><button class="cancel">Cancel</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

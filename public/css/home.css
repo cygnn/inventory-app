@@ -4,6 +4,7 @@ body{
     box-sizing: border-box;
 }
 
+
 header{
     padding: 20px;
     background-color: #1a1a1a;
@@ -169,4 +170,84 @@ a button {
 
 a button:hover {
     background-color: #333333; /* Slightly lighter hover effect */
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    /* font-size: 1rem; */
+    color: #FFFFFF; /* White text */
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+button[type="submit"]:hover {
+    background-color: #45A049; /* Slightly darker green */
+}
+
+button[type="submit"]:active {
+    background-color: #3E8E41; /* Darker green for active click */
+    transform: translateY(1px); /* Push-down effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+}
+
+
+hr{
+    margin: 1rem;
+}
+
+form#item-form {
+    background-color: #FFFFFF; /* White background for the form */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 500px;
+    margin: 20px auto; /* Center the form */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between form elements */
+}
+
+/* Label styling */
+form#item-form label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333333; /* Dark text for labels */
+    margin-bottom: 5px;
+}
+
+/* Input and textarea styling */
+form#item-form input,
+form#item-form select,
+form#item-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus state for inputs */
+form#item-form input:focus,
+form#item-form select:focus,
+form#item-form textarea:focus {
+    border-color: #4A90E2; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* Subtle glow */
+}
+
+/* Textarea styling */
+form#item-form textarea {
+    resize: vertical; /* Allow vertical resizing only */
+    min-height: 100px;
+}
+
+/* Select dropdown styling */
+form#item-form select {
+    appearance: none; /* Remove native dropdown styles for consistency */
+    background-color: #FFFFFF;
 }

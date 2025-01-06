@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/home.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <div class="content">
+        <!-- <a href="/add-category"><button>Add a category</button></a>
+        <a href="/add-item"><button>Add a part</button></a> -->
+        <%- include("sidebar.ejs") %>
+        <div class="main-content">
+            <h1 class="heading">All Parts</h1>
+            <div>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Category</th>
+                        <th>Item name</th>
+                        <th>Brand</th>
+                        <th>Part No.</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Manage</th>
+                    </tr>
+                <%if (items){%>
+                    <%items.forEach((item) => {%>
+                        <tr>
+                            <td><%=item.categoryname%></td>
+                            <td><%=item.itemname%></td>
+                            <td><%=item.brand%></td>
+                            <td><%=item.partnum%></td>
+                            <td><%=item.description%></td>
+                            <td>$<%=item.price%></td>
+                            <td><%=item.quantity%></td>
+                            <td>
+                                <div class="buttons">
+                                    <a href="/<%=item.itemid%>/edit-item"><button>Edit</button></a>
+                                    <form action="/<%=item.itemid%>/delete-item" method="POST">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <%})%>
+                <%}%>
+            </div>
+            <a href="/"><button>Go back</button></a>
+        </div>
+    </div>
+</body>
+</html>

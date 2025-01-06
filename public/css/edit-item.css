@@ -1,0 +1,119 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Light gray background */
+    color: #333; /* Dark gray text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Center the form */
+form {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Form labels and inputs */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555; /* Medium gray */
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #4CAF50; /* Green focus border */
+    outline: none;
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5); /* Soft green glow */
+}
+
+/* Textarea styling */
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #4CAF50; /* Green button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #45A049; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #3E8E41; /* Even darker green on click */
+    transform: translateY(1px);
+}
+
+/* Cancel button */
+a button {
+    background-color: #F44336; /* Red button */
+    margin-left: 10px; /* Space between buttons */
+}
+
+a button:hover {
+    background-color: #D32F2F; /* Darker red */
+}
+
+a button:active {
+    background-color: #B71C1C; /* Even darker red */
+}
+
+/* Adjust spacing for form buttons */
+button[type="submit"], a button[type="button"] {
+    margin: 0 5px;
+}
+
+.buttons-form{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+    height: 35px;
+}
+.cancel {
+    background-color: #F44336; /* Red for cancel */
+    margin-left: 10px;
+    height: 100%;
+}
+
+.cancel:hover {
+    background-color: #D32F2F; /* Darker red */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+.cancel:active {
+    background-color: #B71C1C; /* Even darker red */
+    transform: translateY(1px); /* Push-down effect */
+}

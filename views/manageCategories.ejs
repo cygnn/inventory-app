@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <%- include("header.ejs") %>
+    <div class="content">
+        <%- include("sidebar.ejs") %>
+        <div class="main-content">
+            <h1 class="heading">Manage Categories</h1>
+            <div class="form">
+                <form id="category-form" action="/add-category" method="post">
+                <label for="categoryName">Category Name</label>
+                    <input type="text" name="categoryName" id="categoryName">
+                    <label for="categoryImg">Image</label>
+                    <input type="text" name="categoryImg" id="categoryImg">
+                </form>
+                <button type="submit" form="category-form">Add</button>
+                <a href="/"><button>Cancel</button></a>
+            </div>
+            <hr>
+            <div>
+                <h1 class="heading">Active Categories</h1>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Category name</th>
+                        <th>Manage</th>
+                    </tr>
+                <%if (categories){%>
+                    <%categories.forEach((category) => {%>
+                        <tr>
+                            <td><%=category.categoryname%></td>
+                            <td>
+                                <div class="buttons">
+                                    <a href="/<%=category.categoryid%>/edit-category"><button>Edit</button></a>
+                                    <form action="/<%=category.categoryid%>/delete-category" method="POST">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <%})%>
+                <%}%>
+            </div>
+            <a href="/"><button>Go back</button></a>
+        </div>
+    </div>
+</body>
+</html>
