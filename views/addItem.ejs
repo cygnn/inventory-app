@@ -8,6 +8,14 @@
 </head>
 <body>
     <form id="item-form" action="/add-item" method="post">
+        <%if(locals.errors){%>
+            <ul>
+                <%errors.forEach((error) => {%>
+                    <li><%= error.msg %></li>
+                <%})%>
+            </ul>
+        <%}%>
+        
         <label for="itemName">Item Name</label>
         <input type="text" name="itemName" id="itemName">
         <label for="brand">Brand</label>

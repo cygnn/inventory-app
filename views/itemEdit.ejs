@@ -8,6 +8,7 @@
 </head>
 <body>
     <form id="item-edit" action="/<%=item.itemid%>/edit-item" method="POST">
+        <%-include('partials/error.ejs')%>
         <input type="hidden" name="referer" id="referer" value="<%= referer %>">
         <label for="itemName">Item Name</label>
         <input type="text" name="itemName" id="itemName" value="<%=item.itemname%>">

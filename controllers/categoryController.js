@@ -1,4 +1,17 @@
 import queries from '../model/queries.js';
+import {body, validationResult} from 'express-validator';
+
+const validateCategory = [
+    body("categoryName")
+      .trim()
+      .notEmpty().withMessage("Category Name is required.")
+      .isLength({ max: 100 }).withMessage("Category Name must be 100 characters or fewer.")
+      .matches(/^[a-zA-Z0-9\s'-]+$/).withMessage("Category Name can only contain letters, numbers, spaces, apostrophes, and hyphens."),
+    body("categoryImg")
+      .trim()
+      .isURL().withMessage("Please provide a valid URL for the image."),
+  ];
+  
 
 async function getCategories(req, res) {
     try {
@@ -26,9 +39,14 @@ async function categoryAddGet(req, res) {
     }
 }
 
-async function categoryAddPost(req, res) {
+ const categoryAddPost = [ validateCategory ,async(req, res) => {
     try {
         const { categoryName, categoryImg } = req.body;
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            const categories = await queries.getAllCategoryNames();
+            return res.status(400).render('manageCategories', { categories: categories, errors: errors.array() });
+        }
         await queries.addCategory(categoryName, categoryImg);
         console.log('category name is : ' + categoryName)
         console.log('category img: ' + categoryImg)
@@ -37,7 +55,7 @@ async function categoryAddPost(req, res) {
         console.error("Error adding category:", error);
         res.status(500).render('error');
     }
-}
+}]
 
 async function categoryEditGet(req, res) {
     try {
@@ -49,16 +67,21 @@ async function categoryEditGet(req, res) {
     }
 }
 
-async function categoryEditPost(req, res) {
+const categoryEditPost = [ validateCategory, async(req, res) =>{
     try {
         const { categoryName } = req.body;
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            const categoryDetails = await queries.getCategoryDetails(req.params.categoryid);
+            return res.status(400).render('categoryEdit', { category: categoryDetails, errors:errors.array() });
+        }
         await queries.renameCategory(categoryName, req.params.categoryid);
         res.redirect('/');
     } catch (error) {
         console.error("Error editing category:", error);
         res.status(500).send("An error occurred while editing the category.");
     }
-}
+}]
 
 async function deleteCategory(req, res) {
     try {

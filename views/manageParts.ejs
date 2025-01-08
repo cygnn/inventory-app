@@ -55,6 +55,7 @@ a button{
         <div class="main-content">
             <h1 class="heading">Add Part</h1>
             <form id="item-form" action="/add-item" method="post">
+                <%-include('partials/error.ejs')%>
                 <label for="itemName">Item Name</label>
                 <input type="text" name="itemName" id="itemName">
                 <label for="brand">Brand</label>

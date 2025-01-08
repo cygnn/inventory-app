@@ -4,95 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Category</title>
-    
-    <style>
-        /* General styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F7F7F7; /* Light background color */
-    color: #333333; /* Dark text color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-}
-
-/* Form container styling */
-form#category-edit {
-    background-color: #FFFFFF; /* White form background */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Space between elements */
-}
-
-/* Label styling */
-form#category-edit label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #1A1A1A;
-}
-
-/* Input styling */
-form#category-edit input {
-    padding: 10px 0px;
-    font-size: 1rem;
-    border: 1px solid #CCCCCC;
-    border-radius: 5px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-form#category-edit input:focus {
-    border-color: #4A90E2; /* Blue focus outline */
-}
-
-/* Buttons container */
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-button[type="submit"] {
-    background-color: #4A90E2; /* Primary blue button */
-    color: #FFFFFF;
-}
-
-button[type="submit"]:hover {
-    background-color: #357ABD; /* Darker blue on hover */
-}
-
-a button {
-    background-color: #F44336; /* Red button for cancel */
-    color: #FFFFFF;
-    margin-left: 10px;
-}
-
-a button:hover {
-    background-color: #D32F2F; /* Darker red on hover */
-}
-
-/* Center buttons */
-form#category-edit + div {
-    text-align: center;
-}
-
-    </style>
+    <link rel="stylesheet" href="/css/edit-category.css">
 </head>
 <body>
     <form id="category-edit" action="/<%=category.categoryid%>/edit-category" method="POST">
+        <%-include('partials/error.ejs')%>
         <label for="categoryName">Category Name</label>
         <input type="text" name="categoryName" id="categoryName" value="<%=category.categoryname%>">
         <label for="categoryImg">Image Link</label>

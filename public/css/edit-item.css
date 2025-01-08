@@ -117,3 +117,28 @@ button[type="submit"], a button[type="button"] {
     background-color: #B71C1C; /* Even darker red */
     transform: translateY(1px); /* Push-down effect */
 }
+
+ul {
+    list-style-type: none; /* Removes default list bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0 0 1em 0; /* Adds spacing around the list */
+}
+
+li.error-msg {
+    color: #d9534f; /* Red color for error text */
+    background-color: #f8d7da; /* Light red background */
+    border: 1px solid #f5c6cb; /* Slightly darker red border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px; /* Adds spacing inside each error box */
+    margin-bottom: 5px; /* Adds spacing between error messages */
+    font-size: 0.9rem; /* Adjusts text size */
+    font-family: Arial, sans-serif; /* Ensures a clean, readable font */
+    display: flex; /* Allows more control for alignment */
+    align-items: center; /* Aligns content vertically */
+    gap: 8px; /* Adds space between icon and text (if any) */
+}
+
+li.error-msg::before {
+    content: "⚠️"; /* Adds a warning icon before the message */
+    font-size: 1.2rem; /* Ensures the icon stands out */
+}
