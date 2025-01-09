@@ -10,6 +10,9 @@ const pool = new Pool({
     user: process.env.USER,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
+    ssl: {
+        rejectUnauthorized: false, // Set to true if you need to verify the server's SSL certificate
+    },
 })
 
 export default pool
