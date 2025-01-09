@@ -2,8 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #F7F7F7; /* Light background color */
-    color: #333333; /* Dark text color */
+    background-color: #F7F7F7;
+    color: #333333; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,26 +11,24 @@ body {
     flex-direction: column;
 }
 
-/* Form container styling */
 form#category-edit {
-    background-color: #FFFFFF; /* White form background */
+    background-color: #FFFFFF; 
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Space between elements */
+    gap: 15px; 
 }
 
-/* Label styling */
+
 form#category-edit label {
     font-size: 1rem;
     font-weight: bold;
     color: #1A1A1A;
 }
 
-/* Input styling */
 form#category-edit input {
     padding: 10px 0px;
     font-size: 1rem;
@@ -42,10 +40,9 @@ form#category-edit input {
 }
 
 form#category-edit input:focus {
-    border-color: #4A90E2; /* Blue focus outline */
+    border-color: #4A90E2; 
 }
 
-/* Buttons container */
 button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -57,50 +54,50 @@ button {
 }
 
 button[type="submit"] {
-    background-color: #4A90E2; /* Primary blue button */
+    background-color: #4A90E2;
     color: #FFFFFF;
 }
 
 button[type="submit"]:hover {
-    background-color: #357ABD; /* Darker blue on hover */
+    background-color: #357ABD;
 }
 
 a button {
-    background-color: #F44336; /* Red button for cancel */
+    background-color: #F44336; 
     color: #FFFFFF;
     margin-left: 10px;
 }
 
 a button:hover {
-    background-color: #D32F2F; /* Darker red on hover */
+    background-color: #D32F2F; 
 }
 
-/* Center buttons */
+
 form#category-edit + div {
     text-align: center;
 }
 
 ul {
-    list-style-type: none; /* Removes default list bullet points */
-    padding: 0; /* Removes default padding */
-    margin: 0 0 1em 0; /* Adds spacing around the list */
+    list-style-type: none;
+    padding: 0; 
+    margin: 0 0 1em 0; 
 }
 
 li.error-msg {
-    color: #d9534f; /* Red color for error text */
-    background-color: #f8d7da; /* Light red background */
-    border: 1px solid #f5c6cb; /* Slightly darker red border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 10px; /* Adds spacing inside each error box */
-    margin-bottom: 5px; /* Adds spacing between error messages */
-    font-size: 0.9rem; /* Adjusts text size */
-    font-family: Arial, sans-serif; /* Ensures a clean, readable font */
-    display: flex; /* Allows more control for alignment */
-    align-items: center; /* Aligns content vertically */
-    gap: 8px; /* Adds space between icon and text (if any) */
+    color: #d9534f; 
+    background-color: #f8d7da; 
+    border: 1px solid #f5c6cb; 
+    border-radius: 4px; 
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 0.9rem; 
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
 }
 
 li.error-msg::before {
-    content: "⚠️"; /* Adds a warning icon before the message */
-    font-size: 1.2rem; /* Ensures the icon stands out */
+    content: "⚠️"; 
+    font-size: 1.2rem;
 }
