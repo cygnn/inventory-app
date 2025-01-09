@@ -61,7 +61,10 @@ async function main() {
     process.exit(1);
   }
   const client = new Client({
-    connectionString: connectionString
+    connectionString: connectionString,
+    ssl: {
+      rejectUnauthorized: false, // Set to true if you need to verify the server's SSL certificate
+  },
   });
   await client.connect();
   try {
