@@ -2,25 +2,19 @@
 import pkg from 'pg';
 const { Client } = pkg
 
-const SQL = `
+const CREATE_CATEGORIES_TABLE = `
 CREATE TABLE IF NOT EXISTS categories (
-  categoryId INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  categoryName VARCHAR ( 255 ) NOT NULL,
-  img TEXT
-);
+    categoryid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    categoryname VARCHAR ( 255 ) NOT NULL,
+    img TEXT
+);`;
 
-INSERT INTO categories (categoryName, img) 
-VALUES
-    ('Engine Cooling System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1JHNK7ZSQqDyq_HGlayrU5iOf7INhTr_o1Q&s'),
-    ('Braking System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd2thC5Af9_ntLN11CVRzGLKIJaVYNLxUP-g&s'),
-    ('Fuel Supply System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGtOmwibhXcighdOq2nKMfGJ9Eeo4RmUSQw&s'),
-    ('Transmission System', 'https://www.shutterstock.com/image-vector/car-transmission-icon-gearshift-symbol-600nw-1913268241.jpg');
-
+const CREATE_ITEMS_TABLE = `
 CREATE TABLE IF NOT EXISTS items (
     itemId INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     itemName VARCHAR(150) NOT NULL,
     brand VARCHAR(150) NOT NULL,
-    categoryId INT,
+    categoryid INT,
     partNum VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
     price NUMERIC(10,2),
@@ -29,7 +23,15 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (categoryId)
     REFERENCES categories (categoryId)
     ON DELETE SET NULL
-);
+);`;
+
+const INSERT_DATA =`
+INSERT INTO categories (categoryName, img) 
+VALUES
+    ('Engine Cooling System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1JHNK7ZSQqDyq_HGlayrU5iOf7INhTr_o1Q&s'),
+    ('Braking System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd2thC5Af9_ntLN11CVRzGLKIJaVYNLxUP-g&s'),
+    ('Fuel Supply System', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGtOmwibhXcighdOq2nKMfGJ9Eeo4RmUSQw&s'),
+    ('Transmission System', 'https://www.shutterstock.com/image-vector/car-transmission-icon-gearshift-symbol-600nw-1913268241.jpg');
 
 INSERT INTO items (itemName, brand, categoryId, partNum, description, price, quantity)
 VALUES
@@ -48,7 +50,8 @@ VALUES
     ('Gearbox', 'Brand J', 4, 'PN44556', 'Reliable gearbox for smooth transmission.', 300.00, 5),
     ('Clutch Kit', 'Brand K', 4, 'PN44557', 'High-quality clutch kit for better control.', 120.00, 10),
     ('Drive Shaft', 'Brand L', 4, 'PN44558', 'Durable drive shaft for improved power transmission.', 200.00, 8);
-    `;
+
+`;
 
 async function main() {
   console.log("seeding...");
@@ -61,7 +64,21 @@ async function main() {
     connectionString: connectionString
   });
   await client.connect();
-  await client.query(SQL);
+  try {
+    await client.query(CREATE_CATEGORIES_TABLE);
+  } catch (error) {
+    console.log('Error creating categories table')
+  }
+  try {
+    await client.query(CREATE_ITEMS_TABLE);
+  } catch (error) {
+    console.log('Error creating items table')
+  }
+  try {
+    await client.query(INSERT_DATA);
+  } catch (error) {
+    console.log('Error inserting data')
+  }
   await client.end();
   console.log("done");
 }
