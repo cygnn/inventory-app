@@ -1,6 +1,4 @@
 #! /usr/bin/env node
-//NOT YET FINISHED!
-// const { Client } = require("pg");
 import pkg from 'pg';
 const { Client } = pkg
 
@@ -54,8 +52,13 @@ VALUES
 
 async function main() {
   console.log("seeding...");
+  const connectionString = progress.argv[2];
+  if(!connectionString){
+    console.error("Error: Please provide a connection string as an argument.");
+    process.exit(1);
+  }
   const client = new Client({
-    connectionString: "postgresql://clydee342:Puntanarclyde23*@localhost:5432/car_inventory",
+    connectionString: connectionString
   });
   await client.connect();
   await client.query(SQL);
