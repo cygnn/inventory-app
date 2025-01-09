@@ -81,6 +81,7 @@ async function main() {
     await client.query(INSERT_DATA);
   } catch (error) {
     console.log('Error inserting data')
+    console.log(error)
   }
   await client.end();
   console.log("done");
