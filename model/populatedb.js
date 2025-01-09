@@ -52,7 +52,7 @@ VALUES
 
 async function main() {
   console.log("seeding...");
-  const connectionString = progress.argv[2];
+  const connectionString = process.argv[2];
   if(!connectionString){
     console.error("Error: Please provide a connection string as an argument.");
     process.exit(1);
